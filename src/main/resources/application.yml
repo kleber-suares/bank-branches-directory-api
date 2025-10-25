@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: sboot-banking-directory-api
+  main:
+    banner-mode: "off"
+
+  datasource:
+    url: jdbc:h2:mem:appdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: sa
+
+  h2:
+    console:
+      enabled: true
+  cache:
+    type: redis
+    cache-names: branches
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
