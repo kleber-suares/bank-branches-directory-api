@@ -25,13 +25,13 @@ public class BranchController {
     }
 
     @PostMapping(value = "/cadastrar", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<SaveBranchResponse> getBranchCoordinates(@RequestBody SaveBranchRequest saveBranchRequest) {
+    public ResponseEntity<SaveBranchResponse> saveBranch(@RequestBody SaveBranchRequest saveBranchRequest) {
         log.info("Save branch request received with body: {}", saveBranchRequest);
 
         var branchEntity = new BranchEntity();
         branchEntity.setBranchName(saveBranchRequest.getBranchName());
         branchEntity.setCoordinateX(saveBranchRequest.getPosX());
-        branchEntity.setCoordinateY(saveBranchRequest.getPosX());
+        branchEntity.setCoordinateY(saveBranchRequest.getPosY());
 
         branchService.saveBranch(branchEntity);
 
