@@ -8,6 +8,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,24 +21,18 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/h2-console/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
+            .authorizeHttpRequests(auth ->
+                auth
+                    .requestMatchers("/h2-console/**")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated()
             )
             .headers(headers ->
                 headers
                     .frameOptions(frame -> frame.disable())
             )
-            // csrf desabilitado para permitir o Basic Auth no POST como a app tmbm nao utiliza cookie de sessao
-            .csrf(csrf ->
-                csrf
-                    .disable())
-//            .csrf(csrf ->
-//                csrf
-//                    .ignoringRequestMatchers("/h2-console/**")
-//            )
+            .csrf(CsrfConfigurer::disable)
             .httpBasic(Customizer.withDefaults());
 
         return http.build();
@@ -59,16 +54,5 @@ public class SecurityConfig {
 
         return new ProviderManager(daoAuthenticationProvider);
     }
-
-    /*@Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf(CsrfConfigurer::disable)
-            .authorizeHttpRequests(auth ->
-                auth.anyRequest().authenticated())
-            .httpBasic(Customizer.withDefaults());
-
-        return http.build();
-    }*/
 
 }

@@ -37,13 +37,15 @@ The cache entries are serialized in JSON format for improved readability and eas
 + src/
   + main/
     + java/com/kls/banking/directory/api/
+      + config
       + controller/
-      + service/
-      + repository/
-      + config/
+      + dao/
       + dto/
-      + domain/
+      + entity/
+      + dto/
       + mapper/
+      + service/
+      + utils/
     + resources/
       + application.yml
 
