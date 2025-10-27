@@ -25,5 +25,10 @@ spring:
     port: 6379
     timeout: 3000  # timeout in milliseconds
 
+  security:
+    user:
+      name: admin
+      password: admin
+
 cache-ttl:
   branches-distances-cache-ttl-in-min: 2

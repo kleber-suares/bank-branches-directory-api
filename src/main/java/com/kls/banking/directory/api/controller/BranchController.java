@@ -53,4 +53,8 @@ public class BranchController {
         return ResponseEntity.ok(branchesWithDistancesResponse);
     }
 
+    @GetMapping("/health")
+    public String getAppHealth() {
+        return "Healthy! All up and running!";
+    }
 }
