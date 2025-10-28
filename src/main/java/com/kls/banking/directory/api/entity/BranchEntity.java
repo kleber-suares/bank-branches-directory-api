@@ -10,15 +10,15 @@ public class BranchEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long branchId;
     private String branchName;
-    private Double coordinateX;
-    private Double coordinateY;
+    private Double xCoordinate;
+    private Double yCoordinate;
 
     public BranchEntity() {}
 
-    public BranchEntity(String branchName, Double coordinateX, Double coordinateY) {
+    public BranchEntity(String branchName, Double xCoordinate, Double yCoordinate) {
         this.branchName = branchName;
-        this.coordinateX = coordinateX;
-        this.coordinateY = coordinateY;
+        this.xCoordinate = xCoordinate;
+        this.yCoordinate = yCoordinate;
     }
 
     public Long getBranchId() {
@@ -37,19 +37,19 @@ public class BranchEntity {
         this.branchName = branchName;
     }
 
-    public Double getCoordinateX() {
-        return coordinateX;
+    public Double getXCoordinate() {
+        return xCoordinate;
     }
 
-    public void setCoordinateX(Double coordinateX) {
-        this.coordinateX = coordinateX;
+    public void setXCoordinate(Double xCoordinate) {
+        this.xCoordinate = xCoordinate;
     }
 
-    public Double getCoordinateY() {
-        return coordinateY;
+    public Double getYCoordinate() {
+        return yCoordinate;
     }
 
-    public void setCoordinateY(Double coordinateY) {
-        this.coordinateY = coordinateY;
+    public void setYCoordinate(Double yCoordinate) {
+        this.yCoordinate = yCoordinate;
     }
 }

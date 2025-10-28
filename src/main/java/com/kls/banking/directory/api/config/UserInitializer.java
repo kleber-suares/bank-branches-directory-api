@@ -1,7 +1,7 @@
 package com.kls.banking.directory.api.config;
 
 import com.kls.banking.directory.api.dao.UserRepository;
-import com.kls.banking.directory.api.entity.Role;
+import com.kls.banking.directory.api.enums.Role;
 import com.kls.banking.directory.api.entity.UserEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -15,36 +15,38 @@ import java.util.Map;
 @Component
 public class UserInitializer {
 
-    @Bean
-    public CommandLineRunner createInitialUsers(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        return args -> {
-            Map<String, Role> defaultUsers = Map.of(
-                "admin", Role.ADMIN,
-                "user", Role.USER
-            );
+    private final UserProperties userProperties;
 
-            defaultUsers.forEach((username, role) ->
-                userRepository.findByUsername(username)
-                    .or(() -> createUser(username, role, userRepository, passwordEncoder))
-            );
-        };
+    public UserInitializer(UserProperties userProperties) {
+        this.userProperties = userProperties;
     }
 
-    private java.util.Optional<UserEntity> createUser(
-        String username,
-        Role role,
+    @Bean
+    public CommandLineRunner createInitialUsers(
         UserRepository userRepository,
         PasswordEncoder passwordEncoder
     ) {
-        UserEntity user = new UserEntity();
-        user.setUsername(username);
-        user.setPassword(passwordEncoder.encode(username)); // password = username
-        user.setRole(role);
 
-        userRepository.save(user);
-        log.info("Default user '{}' with role {} created.", username, role);
+        return args -> {
+            userProperties.getUsers().forEach(defaultUser -> {
+                String username = defaultUser.getUsername();
 
-        return java.util.Optional.of(user);
+                userRepository.findByUsername(username).ifPresentOrElse(
+                    existing -> log.info("User '{}' already exists.", username),
+                    () -> {
+                        UserEntity user = new UserEntity();
+
+                        user.setUsername(username);
+                        user.setPassword(passwordEncoder.encode(defaultUser.getPassword()));
+                        user.setRole(defaultUser.getRole());
+
+                        userRepository.save(user);
+
+                        log.info("Default user '{}' with role {} created.", username, defaultUser.getRole());
+                    }
+                );
+            });
+        };
     }
-
 }
+

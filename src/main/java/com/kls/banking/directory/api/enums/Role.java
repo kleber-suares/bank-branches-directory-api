@@ -1,4 +1,4 @@
-package com.kls.banking.directory.api.entity;
+package com.kls.banking.directory.api.enums;
 
 public enum Role {
 

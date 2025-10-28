@@ -33,3 +33,12 @@ spring:
 
 cache-ttl:
   branches-distances-cache-ttl-in-min: 2
+
+app:
+  users:
+    - username: admin
+      password: admin
+      role: ADMIN
+    - username: user
+      password: user
+      role: USER

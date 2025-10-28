@@ -1,6 +1,7 @@
 package com.kls.banking.directory.api.service;
 
 import com.kls.banking.directory.api.dto.BranchResponse;
+import com.kls.banking.directory.api.dto.Coordinates;
 import com.kls.banking.directory.api.entity.BranchEntity;
 import com.kls.banking.directory.api.dao.BranchRepository;
 import com.kls.banking.directory.api.mapper.BranchResponseMapper;
@@ -28,6 +29,7 @@ public class BranchService {
     @CacheEvict(value = BRANCHES_DISTANCES_LIST_CACHE, allEntries = true)
     public Long saveBranch(BranchEntity branchEntity) {
         BranchEntity savedBranch =  branchRepository.save(branchEntity);
+
         Long branchId = savedBranch.getBranchId();
 
         log.info("Branch saved with id: {}", branchId);
@@ -36,16 +38,16 @@ public class BranchService {
     }
 
     @Cacheable(BRANCHES_DISTANCES_LIST_CACHE)
-    public List<BranchResponse> findBranchesWithDistances(Double posX, Double posY) {
+    public List<BranchResponse> findBranchesWithDistances(Coordinates coordinates) {
         log.info("Fetching list of branches directly from database due to missing or expired cache.");
 
         List<BranchEntity> branchEntityList = branchRepository.findAll();
 
-        List<BranchResponse> unsortedList = BranchResponseMapper.mapBranchesWithDistances(branchEntityList, posX, posY);
+        List<BranchResponse> unsortedList = BranchResponseMapper.mapBranchesWithDistances(branchEntityList, coordinates);
 
         return unsortedList.stream()
             .sorted(
-                Comparator.comparingDouble(BranchResponse::getDistancia))
+                Comparator.comparingDouble(BranchResponse::getDistance))
             .collect(Collectors.toList());
     }
 

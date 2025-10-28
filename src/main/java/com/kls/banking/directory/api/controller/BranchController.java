@@ -1,12 +1,10 @@
 package com.kls.banking.directory.api.controller;
 
-import com.kls.banking.directory.api.dto.BranchResponse;
-import com.kls.banking.directory.api.dto.ListofBranchesWithDistancesResponse;
-import com.kls.banking.directory.api.dto.SaveBranchResponse;
-import com.kls.banking.directory.api.dto.SaveBranchRequest;
+import com.kls.banking.directory.api.dto.*;
 import com.kls.banking.directory.api.entity.BranchEntity;
 import com.kls.banking.directory.api.service.BranchService;
 import lombok.extern.slf4j.Slf4j;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/desafio")
+@RequestMapping("/branches")
 @Slf4j
 public class BranchController {
 
@@ -24,30 +22,36 @@ public class BranchController {
         this.branchService = branchService;
     }
 
-    @PostMapping(value = "/cadastrar", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SaveBranchResponse> saveBranch(@RequestBody SaveBranchRequest saveBranchRequest) {
         log.info("Save branch request received with body: {}", saveBranchRequest);
 
         var branchEntity = new BranchEntity();
         branchEntity.setBranchName(saveBranchRequest.getBranchName());
-        branchEntity.setCoordinateX(saveBranchRequest.getPosX());
-        branchEntity.setCoordinateY(saveBranchRequest.getPosY());
+        branchEntity.setXCoordinate(saveBranchRequest.getXCoord());
+        branchEntity.setYCoordinate(saveBranchRequest.getYCoord());
 
         branchService.saveBranch(branchEntity);
 
-        return ResponseEntity.ok(SaveBranchResponse.success("Agência cadastrada com sucesso"));
+        return ResponseEntity.ok(SaveBranchResponse.success("Branch succefully saved"));
     }
 
-    @GetMapping("/distancia")
+    @GetMapping("/distance")
     public ResponseEntity<ListofBranchesWithDistancesResponse> getBranchesWithDistances(
-        @RequestParam(required = false) Double posX,
-        @RequestParam(required = false) Double posY
+        @RequestParam(required = false) @NotNull Double xCoord,
+        @RequestParam(required = false) @NotNull Double yCoord
     ) {
-        log.info("Received request to calculate distance for coordinates x={}, y={}", posX, posY);
+        log.info("Received request to calculate distance for coordinates x={}, y={}", xCoord, yCoord);
+
+        Coordinates coordinates =
+            Coordinates.builder()
+                .xCoord(xCoord)
+                .yCoord(yCoord)
+                .build();
 
         ListofBranchesWithDistancesResponse branchesWithDistancesResponse = new ListofBranchesWithDistancesResponse();
 
-        List<BranchResponse> branchResponseList = branchService.findBranchesWithDistances(posX, posY);
+        List<BranchResponse> branchResponseList = branchService.findBranchesWithDistances(coordinates);
         branchesWithDistancesResponse.setBranchesList(branchResponseList);
 
         return ResponseEntity.ok(branchesWithDistancesResponse);
@@ -57,4 +61,5 @@ public class BranchController {
     public String getAppHealth() {
         return "Healthy! All up and running!";
     }
+
 }

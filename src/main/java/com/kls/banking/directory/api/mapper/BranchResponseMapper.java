@@ -1,6 +1,7 @@
 package com.kls.banking.directory.api.mapper;
 
 import com.kls.banking.directory.api.dto.BranchResponse;
+import com.kls.banking.directory.api.dto.Coordinates;
 import com.kls.banking.directory.api.entity.BranchEntity;
 import com.kls.banking.directory.api.utils.DistanceCalculator;
 
@@ -14,8 +15,7 @@ public class BranchResponseMapper {
 
     public static List<BranchResponse> mapBranchesWithDistances(
         List<BranchEntity> branchEntityList,
-        Double posX,
-        Double posY
+        Coordinates coordinates
     ) {
         List<BranchResponse> branchResponseList = new ArrayList<>();
 
@@ -23,16 +23,16 @@ public class BranchResponseMapper {
             return branchEntityList.stream()
                 .map(branchEntity -> {
                     var branchResponse = new BranchResponse();
-                    branchResponse.setAgencia(branchEntity.getBranchName());
+                    branchResponse.setBranch(branchEntity.getBranchName());
 
                     Double distance = DistanceCalculator.getDistanceBetween(
-                        posX,
-                        posY,
-                        branchEntity.getCoordinateX(),
-                        branchEntity.getCoordinateY()
+                        coordinates.getXCoord(),
+                        coordinates.getYCoord(),
+                        branchEntity.getXCoordinate(),
+                        branchEntity.getYCoordinate()
                     );
 
-                    branchResponse.setDistancia(distance);
+                    branchResponse.setDistance(distance);
 
                     return branchResponse;
                 })

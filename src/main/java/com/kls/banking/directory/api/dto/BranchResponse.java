@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Data
 public class BranchResponse implements Serializable {
 
-    private String agencia;
-    private Double distancia;
+    private String branch;
+    private Double distance;
 
 }

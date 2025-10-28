@@ -1,12 +1,15 @@
 package com.kls.banking.directory.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
 public class SaveBranchRequest {
 
     private String branchName;
-    private Double posX;
-    private Double posY;
+    @JsonProperty("xCoord")
+    private Double xCoord;
+    @JsonProperty("yCoord")
+    private Double yCoord;
 
 }

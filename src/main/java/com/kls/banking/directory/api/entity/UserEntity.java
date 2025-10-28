@@ -1,5 +1,6 @@
 package com.kls.banking.directory.api.entity;
 
+import com.kls.banking.directory.api.enums.Role;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
