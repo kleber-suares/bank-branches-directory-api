@@ -1,4 +1,4 @@
-# 🏦 Banking Directory API
+# 🏦 Bank Branches Directory API
 
 Banking Directory API is a REST API built with Spring Boot that manages the registration of bank branches along with their respective X and Y coordinates.
 
@@ -197,3 +197,9 @@ to confirm that the data has been cached in Redis.
 ```console
 ttl "branchesDistances::Coordinates(xCoord=-10.2, yCoord=4.5)"
 ```
+## 📄 License
+
+This project is licensed under the MIT License.
+You are free to use, modify, and distribute this software, provided that the original copyright notice is included.
+
+For more information, refer to the [LICENSE](LICENSE) file.
