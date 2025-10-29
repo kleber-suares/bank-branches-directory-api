@@ -78,11 +78,23 @@ Example authentication for testing (via Postman or curl):
 ```console
 curl.exe -u user:user "localhost:8080/branches/health"
 ```
+```console
+curl.exe -u admin:admin "localhost:8080/branches/health"
+```
 🟡 Expected OK response:
 ```console
 Healthy! All up and running!
 ```
 ---
+
+## 🔒 Role-Based Authorization
+
+The application implements role-based access control using Spring Security.
+
+- ADMIN users can register new branches.
+- USER and ADMIN roles can query branch distances.
+
+Authentication is performed via Basic Auth with credentials stored in the database during application startup.
 
 ## ⚙️ Caching Details
 
@@ -197,6 +209,15 @@ to confirm that the data has been cached in Redis.
 ```console
 ttl "branchesDistances::Coordinates(xCoord=-10.2, yCoord=4.5)"
 ```
+
+---
+## 🎓 About this Project
+
+This project was developed as a study case to explore technologies such as Spring Boot, Spring Security, Redis Cache, and H2 Database.
+
+Its purpose is to serve as a reference and learning resource for similar projects or future enhancements.
+
+---
 ## 📄 License
 
 This project is licensed under the MIT License.

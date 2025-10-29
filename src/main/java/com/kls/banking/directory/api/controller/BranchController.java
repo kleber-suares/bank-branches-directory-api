@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class BranchController {
         this.branchService = branchService;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SaveBranchResponse> saveBranch(@RequestBody SaveBranchRequest saveBranchRequest) {
         log.info("Save branch request received with body: {}", saveBranchRequest);
@@ -36,6 +38,7 @@ public class BranchController {
         return ResponseEntity.ok(SaveBranchResponse.success("Branch succefully saved"));
     }
 
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @GetMapping("/distance")
     public ResponseEntity<ListofBranchesWithDistancesResponse> getBranchesWithDistances(
         @RequestParam(required = false) @NotNull Double xCoord,
