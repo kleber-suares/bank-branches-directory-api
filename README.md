@@ -96,14 +96,15 @@ The application implements role-based access control using Spring Security.
 
 Authentication is performed via Basic Auth with credentials stored in the database during application startup.
 
-## ⚙️ Caching Details
+---
+## ️🗃️️ Caching Details
 
 The application uses Redis as the caching provider, with each cache entry having a configurable TTL (Time-To-Live) defined in application.yml.
 
 Cached values are stored in JSON and can be inspected directly from Redis CLI.
 
 ---
-🧱 Prerequisites
+## 🔧 Setup Requirements
 
 Before running the application, make sure Docker is installed and then follow the steps below to set up Redis.
 
