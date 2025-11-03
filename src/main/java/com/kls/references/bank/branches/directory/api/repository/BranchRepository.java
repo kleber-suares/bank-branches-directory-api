@@ -1,4 +1,4 @@
-package com.kls.references.bank.branches.directory.api.dao;
+package com.kls.references.bank.branches.directory.api.repository;
 
 import com.kls.references.bank.branches.directory.api.entity.BranchEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -3,7 +3,7 @@ package com.kls.references.bank.branches.directory.api.service;
 import com.kls.references.bank.branches.directory.api.dto.BranchResponse;
 import com.kls.references.bank.branches.directory.api.dto.Coordinates;
 import com.kls.references.bank.branches.directory.api.entity.BranchEntity;
-import com.kls.references.bank.branches.directory.api.dao.BranchRepository;
+import com.kls.references.bank.branches.directory.api.repository.BranchRepository;
 import com.kls.references.bank.branches.directory.api.mapper.BranchResponseMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;

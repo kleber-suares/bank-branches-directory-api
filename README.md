@@ -43,12 +43,12 @@ Cache entries are stored in JSON format for better readability and easier inspec
     + java/com/kls/banking/directory/api/
       + config
       + controller/
-      + dao/
       + dto/
       + entity/
       + enums
       + dto/
       + mapper/
+      + repository
       + service/
       + utils/
     + resources/
@@ -110,11 +110,11 @@ Before running the application, make sure Docker is installed and then follow th
 
 1️⃣ Pull the Redis image:
 ```console
-docker pull redis
+docker pull redis:8.0 
 ```
 2️⃣ Create and start a new container:
 ```console
-docker run --name redis -p 6379:6379 -d redis
+docker run --name redis -p 6379:6379 -d redis:8.0
 ```
 3️⃣ Access the container shell (optional):
 ```console

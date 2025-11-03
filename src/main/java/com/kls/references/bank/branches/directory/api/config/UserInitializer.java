@@ -1,6 +1,6 @@
 package com.kls.references.bank.branches.directory.api.config;
 
-import com.kls.references.bank.branches.directory.api.dao.UserRepository;
+import com.kls.references.bank.branches.directory.api.repository.UserRepository;
 import com.kls.references.bank.branches.directory.api.entity.UserEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;

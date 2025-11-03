@@ -1,6 +1,6 @@
 package com.kls.references.bank.branches.directory.api.service;
 
-import com.kls.references.bank.branches.directory.api.dao.UserRepository;
+import com.kls.references.bank.branches.directory.api.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
